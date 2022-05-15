@@ -1,66 +1,118 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Connect 4</title>
+        <title>Connect 4 | Ash Holdsworth</title>
         <link href="main.css" rel="stylesheet"/>
     </head>
     <body>
-        <h1>Connect 4</h1>
-        <div id="grid">
-            <div class="row" id="row-0">
-                <div class="column" id="row-0-column-0"></div>
-                <div class="column" id="row-0-column-1"></div>
-                <div class="column" id="row-0-column-2"></div>
-                <div class="column" id="row-0-column-3"></div>
-                <div class="column" id="row-0-column-4"></div>
-                <div class="column" id="row-0-column-5"></div>
-                <div class="column" id="row-0-column-6"></div>
-            </div>
-            <div class="row" id="row-1">
-                <div class="column" id="row-1-column-0"></div>
-                <div class="column" id="row-1-column-1"></div>
-                <div class="column" id="row-1-column-2"></div>
-                <div class="column" id="row-1-column-3"></div>
-                <div class="column" id="row-1-column-4"></div>
-                <div class="column" id="row-1-column-5"></div>
-                <div class="column" id="row-1-column-6"></div>
-            </div>
-            <div class="row" id="row-2">
-                <div class="column" id="row-2-column-0"></div>
-                <div class="column" id="row-2-column-1"></div>
-                <div class="column" id="row-2-column-2"></div>
-                <div class="column" id="row-2-column-3"></div>
-                <div class="column" id="row-2-column-4"></div>
-                <div class="column" id="row-2-column-5"></div>
-                <div class="column" id="row-2-column-6"></div>
-            </div>
-            <div class="row" id="row-3">
-                <div class="column" id="row-3-column-0"></div>
-                <div class="column" id="row-3-column-1"></div>
-                <div class="column" id="row-3-column-2"></div>
-                <div class="column" id="row-3-column-3"></div>
-                <div class="column" id="row-3-column-4"></div>
-                <div class="column" id="row-3-column-5"></div>
-                <div class="column" id="row-3-column-6"></div>
-            </div>
-            <div class="row" id="row-4">
-                <div class="column" id="row-4-column-0"></div>
-                <div class="column" id="row-4-column-1"></div>
-                <div class="column" id="row-4-column-2"></div>
-                <div class="column" id="row-4-column-3"></div>
-                <div class="column" id="row-4-column-4"></div>
-                <div class="column" id="row-4-column-5"></div>
-                <div class="column" id="row-4-column-6"></div>
-            </div>
-            <div class="row" id="row-5">
-                <div class="column" id="row-5-column-0"></div>
-                <div class="column" id="row-5-column-1"></div>
-                <div class="column" id="row-5-column-2"></div>
-                <div class="column" id="row-5-column-3"></div>
-                <div class="column" id="row-5-column-4"></div>
-                <div class="column" id="row-5-column-5"></div>
-                <div class="column" id="row-5-column-6"></div>
-            </div>
+        <div id="header">
+            <h1>Connect 4</h1>
         </div>
+
+        <div id="nav-bar">
+            <hr/>Nav Bar Buttons <hr/>
+        </div>
+
+        <div id="main">
+
+            <div id="game-board">
+                <div id="grid">
+                    <div class="row" id="row-0">
+                        <div class="column" id="row-0-column-0"></div>
+                        <div class="column" id="row-0-column-1"></div>
+                        <div class="column" id="row-0-column-2"></div>
+                        <div class="column" id="row-0-column-3"></div>
+                        <div class="column" id="row-0-column-4"></div>
+                        <div class="column" id="row-0-column-5"></div>
+                        <div class="column" id="row-0-column-6"></div>
+                    </div>
+                    <div class="row" id="row-1">
+                        <div class="column" id="row-1-column-0"></div>
+                        <div class="column" id="row-1-column-1"></div>
+                        <div class="column" id="row-1-column-2"></div>
+                        <div class="column" id="row-1-column-3"></div>
+                        <div class="column" id="row-1-column-4"></div>
+                        <div class="column" id="row-1-column-5"></div>
+                        <div class="column" id="row-1-column-6"></div>
+                    </div>
+                    <div class="row" id="row-2">
+                        <div class="column" id="row-2-column-0"></div>
+                        <div class="column" id="row-2-column-1"></div>
+                        <div class="column" id="row-2-column-2"></div>
+                        <div class="column" id="row-2-column-3"></div>
+                        <div class="column" id="row-2-column-4"></div>
+                        <div class="column" id="row-2-column-5"></div>
+                        <div class="column" id="row-2-column-6"></div>
+                    </div>
+                    <div class="row" id="row-3">
+                        <div class="column" id="row-3-column-0"></div>
+                        <div class="column" id="row-3-column-1"></div>
+                        <div class="column" id="row-3-column-2"></div>
+                        <div class="column" id="row-3-column-3"></div>
+                        <div class="column" id="row-3-column-4"></div>
+                        <div class="column" id="row-3-column-5"></div>
+                        <div class="column" id="row-3-column-6"></div>
+                    </div>
+                    <div class="row" id="row-4">
+                        <div class="column" id="row-4-column-0"></div>
+                        <div class="column" id="row-4-column-1"></div>
+                        <div class="column" id="row-4-column-2"></div>
+                        <div class="column" id="row-4-column-3"></div>
+                        <div class="column" id="row-4-column-4"></div>
+                        <div class="column" id="row-4-column-5"></div>
+                        <div class="column" id="row-4-column-6"></div>
+                    </div>
+                    <div class="row" id="row-5">
+                        <div class="column" id="row-5-column-0"></div>
+                        <div class="column" id="row-5-column-1"></div>
+                        <div class="column" id="row-5-column-2"></div>
+                        <div class="column" id="row-5-column-3"></div>
+                        <div class="column" id="row-5-column-4"></div>
+                        <div class="column" id="row-5-column-5"></div>
+                        <div class="column" id="row-5-column-6"></div>
+                    </div>
+                </div> <!--End of grid div-->
+
+                <div id="grid-stand">
+                    <p id="grid-text">Connect 4 by Ash</p>
+                </div>
+
+            </div> <!--End of game-board div-->
+
+            <div id="names-and-scores">
+
+                <div id="submit-names" style="display:none">
+                    <p id="submit-names-header">Please enter your names:</p>
+                    <p>Player 1: <input id="player-1-input"></p>
+                    <p>Player 2: <input id="player-2-input"></p>
+                    <div id="submit-names-buttons">
+                        <button id="submit-button">Submit Names</button>
+                        <button id="clear-button">Clear</button>
+                    </div>
+                </div>
+
+                <div id="display-names-and-scores" style="display:block">
+                    <p id="display-player-1-name">Player 1: </p>
+                    <p id="player-1-score">Score: </p>
+                    <p id="display-player-2-name">Player 2: </p>
+                    <p id="player-2-score">Score: </p>
+                    <div id="display-names-and-scores-buttons">
+                        <button id="reset-game-button">Reset</button>
+                        <button id="play-again-button">Play Again</button>
+                    </div>
+
+                    <div id="display-turn">
+                        <p>Current Turn: </p>
+                    </div>
+
+                </div> <!--End of display-names-and-scores div-->
+            </div> <!--End of names-and-scores div-->
+        </div> <!--End of main-display div-->
+
+        <div id="footer">
+            <hr/>
+            A game by Ash Holdsworth
+        </div> <!--End of footer div-->
+
     </body>
 </html>

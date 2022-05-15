@@ -1,12 +1,102 @@
-.column {
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+}
 
+hr {
+    border: 3px solid;
+    border-radius: 5px;
+}
+
+#header {
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+#nav-bar {
+    background-color: lightgrey;
+}
+
+#main {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+    height: 100%;
+}
+
+#grid {
+    margin: 0px 0px 0px 20px;
+    border: 5px solid;
+    border-radius: 10% 10% 5% 5%;
+    background-color: blue;
+
+}
+
+.column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 70px;
+    border: 7px solid;
+    border-radius: 100%;
+    border-color: black;
+    background-color: white;
+    margin: 1px;
 }
 
 .row {
-
+    display: flex;
+    justify-content: center;
+    width: 560px;
 }
 
-body {
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
+#grid-stand {
+    border: 5px solid;
+    margin-left: 20px;
+    border-color: black;
+    background-color: blue;
+    height: 15px;
+    border-radius: 15% 15% 0% 0%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 5px;
+}
+
+#grid-text {
+    display: flex;
+    font-size: x-small;
+    color: darkblue;
+}
+
+#names-and-scores {
+    display: flex;
+    margin-left: 20px;
+    height: fit-content;
+}
+
+
+#submit-names {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+button {
+    margin: 10px 0px 10px 0px;
+}
+
+#display-names-and-scores {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#footer {
+    width: 99%;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    padding: 0px 0px 5px 0px;
 }
