@@ -3,14 +3,15 @@ body {
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
     height: 100%;
-    width: fit-content;
+    min-width: fit-content;
     border: 5px inset;
     border-color: blue;
     margin: auto;
     margin-top: 1%;
     padding: 7px;
-    border-radius: 1%;
-    min-width: 50%;    
+    border-radius: 1%; 
+    max-width: 95%;
+    font-weight: bold;
 }
 
 hr {
@@ -22,7 +23,6 @@ hr {
     display: flex;
     justify-content: center;
     flex: wrap;
-    font-weight: bold;
     margin-left: 1%;
 }
 
@@ -51,8 +51,9 @@ hr {
 
 #current-player {
     display: flex;
-    font-weight: bold;
     height: fit-content;
+    align-items: center;
+    justify-content: center;
 }
 
 #current-player-indicator {
@@ -62,6 +63,11 @@ hr {
     border-color: black;
     border-radius: 100%;
     background-color: red;
+}
+
+#current-player-name {
+    display: flex;
+    justify-self: center;
 }
 
 #game-board {
@@ -120,6 +126,10 @@ hr {
 
 button {
     margin: 10px 0px 10px 0px;
+    padding: 3%;
+    width: 80%;
+    font-weight: bold;
+
 }
 
 #display-names-and-scores {

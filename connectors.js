@@ -1,4 +1,4 @@
-function clearBoard() {
+function clearDrawnBoard() {
     console.log("clearBoard was called.")
 
     for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
@@ -12,7 +12,7 @@ function drawBoard(board) {
     console.log("drawBoard was called.")
 
     document.getElementById("game-board").style.display = "block"
-    clearBoard()
+    clearDrawnBoard()
     for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
         for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
             if (!board[rowIndex][columnIndex]) {
@@ -32,11 +32,14 @@ function hideGame() {
     document.getElementById("current-player").style.display = "none"
 }
 
-function drawPlayerTurnIndicactor(moveHistory) {
+function drawPlayerTurnIndicactor(historyLog) {
     console.log("drawPlayerTurnIndicator was called.")
 
+    let turnColour = "red"
     document.getElementById("current-player").style.display = "block"
-    const turnColour = moveHistory.flat().at(-3) === "red" ? "yellow" : "red"
+    if (historyLog.length > 0) {
+        turnColour = historyLog.flat().at(-3) === "red" ? "yellow" : "red"
+    }
     document.getElementById("current-player-indicator").style.backgroundColor = turnColour
     const currentPlayerName = redsTurn === true ? players[0] : players[1]
     document.getElementById("current-player-name").innerText = currentPlayerName
@@ -60,11 +63,14 @@ function displayScores() {
 
 
 function positionClick(rowIndex, columnIndex) {
+    console.log("positionClick was called.")
+
     takeTurn(rowIndex, columnIndex)
     const board = getBoard()
     drawBoard(board)
-    drawPlayerTurnIndicactor(moveHistory);
     checkWinner();
+    drawPlayerTurnIndicactor(moveHistory);
+
 }
 
 function ifWinner() {
@@ -108,7 +114,7 @@ function resetClick() {
     clearNamesClick()
     document.getElementById("submit-names").style.display = "block"
     resetGame()
-    clearBoard()
+    clearDrawnBoard()
 }
 
 function undoClick() {
@@ -123,6 +129,15 @@ function playAgainClick() {
     console.log("playAgainClick was called.")
 
     
+}
+
+function clearBoardClick() {
+    console.log("clearBoardButton was called.")
+
+    clearDrawnBoard()
+    redsTurnFunc()
+    resetGame()
+    drawPlayerTurnIndicactor(moveHistory)
 }
 
 // Bind the click events for the grid.

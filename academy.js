@@ -11,6 +11,13 @@ let moveHistory = []
 let redsTurn = true
 let players = []
 let playerScores = [0,0]
+let turnsTaken = 0
+
+function redsTurnFunc() {
+    console.log("redsTurnFunc was called.")
+
+    redsTurn = true
+}
 
 function takeTurn(row, col) {
     console.log(`takeTurn was called with row: ${row}, column: ${col}.`)
@@ -20,17 +27,19 @@ function takeTurn(row, col) {
             if (board[i][col] === null && redsTurn) {
                 board[i][col] = "red"
                 storeMoves("red", i, col)
+                turnsTaken++
                 redsTurn = false
                 break
             } else if (board[i][col] === null && !redsTurn) {
                 board[i][col] = "yellow"
                 storeMoves( "yellow", i, col)
+                turnsTaken++
                 redsTurn = true
                 break
             }
         }
     } else {
-        console.log("That piece is unavilable")
+        console.log("That piece is unavilable.")
     }
     
 }
@@ -50,6 +59,7 @@ function getBoard() {
 function resetGame() {
     console.log("resetGame was called.")
 
+    moveHistory = []
     board = [
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
@@ -82,13 +92,22 @@ function setScores() {
 function getScores() {
     console.log("getScores was called.")
 
-    return [player1Score, player2Score]
+    return [playerScores]
 }
 
 function checkWinner() {
     console.log("checkWinner was called.")
 
+    const drawnGame = turnsTaken === 42 ? true : false
+    if (!drawnGame) {
+        noWinner()
+    }
+}
 
+function noWinner() {
+    console.log("noWinner was called.")
+
+    return true
 }
 
 function undoLastMove() {
