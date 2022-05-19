@@ -10,7 +10,7 @@ body {
     margin-top: 1%;
     padding: 7px;
     border-radius: 1%;
-    
+    min-width: 50%;    
 }
 
 hr {
@@ -39,6 +39,7 @@ hr {
 #main {
     display: flex;
     justify-content: center;
+    column-gap: 2%;
     margin: 2%;
     height: 100%;
     background-color: cadetblue;
@@ -48,17 +49,14 @@ hr {
     border-radius: 1%;
 }
 
-#submit-names {
-    display: flex;
-    justify-content: inherit;
-}
-
 #current-player {
+    display: flex;
     font-weight: bold;
+    height: fit-content;
 }
 
 #current-player-indicator {
-    width: 80px;
+    width:calc();
     height: 80px;
     border: 7px solid;
     border-color: black;
@@ -66,14 +64,16 @@ hr {
     background-color: red;
 }
 
+#game-board {
+    width: 64%;
+    max-width: 560px;
+}
+
 #grid {
-    margin: 0px 0px 0px 20px;
     border: 5px solid;
     border-radius: 8% 8% 5% 5%;
     background-color: blue;
-    width: 560px;
     height: 516px;
-
 }
 
 .column {
@@ -92,13 +92,12 @@ hr {
 .row {
     display: flex;
     justify-content: center;
-    width: 560px;
+    width: 100%;
     height: auto;
 }
 
 #grid-stand {
     border: 5px solid;
-    margin-left: 20px;
     border-color: black;
     background-color: blue;
     height: 15px;
@@ -116,7 +115,7 @@ hr {
 }
 
 #names-and-scores {
-    margin-left: 20px;
+    min-width: 150px;
 }
 
 button {

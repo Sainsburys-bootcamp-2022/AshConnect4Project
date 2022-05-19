@@ -19,12 +19,12 @@ function takeTurn(row, col) {
         for (let i = 5; i >= 0; i--) {
             if (board[i][col] === null && redsTurn) {
                 board[i][col] = "red"
-                storeMoves("red", row, col)
+                storeMoves("red", i, col)
                 redsTurn = false
                 break
             } else if (board[i][col] === null && !redsTurn) {
                 board[i][col] = "yellow"
-                storeMoves( "yellow", row, col)
+                storeMoves( "yellow", i, col)
                 redsTurn = true
                 break
             }
@@ -89,4 +89,13 @@ function checkWinner() {
     console.log("checkWinner was called.")
 
 
+}
+
+function undoLastMove() {
+    console.log("undoLastMove was called.")
+
+    const lastMove = moveHistory.at(-1)
+    board[lastMove[1]][lastMove[2]] = null
+    redsTurn = lastMove[0] === "red" ? true : false
+    moveHistory.pop()
 }

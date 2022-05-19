@@ -28,6 +28,7 @@
             <div id="current-player" style="display: none;">
                     <p>Next Turn:</p>
                     <div id="current-player-indicator"></div>
+                    <p id="current-player-name"></p>
             </div>
 
             <div id="game-board" style="display:none">
@@ -94,17 +95,19 @@
 
             </div> <!--End of game-board div-->
 
-            <div id="names-and-scores">
+            <div id="names-and-scores" style="display: none;">
 
-                <div id="display-names-and-scores" style="display:none">
+                <div id="display-names-and-scores">
                     <p>Player 1: </p><p id="display-player-1-name"></p>
                     <p>Score: <span id="player-1-score"></span></p>
                     <p>Player 2:</p><p id="display-player-2-name"></p>
                     <p>Score: <span id="player-2-score"></span></p>
                     
                     <div id="display-names-and-scores-buttons">
-                        <button id="reset-game-button">Reset</button>
-                        <button id="play-again-button">Play Again</button>
+                        <button id="play-again-button" style="display: none;">Play Again</button>
+                        <button id="undo-last-move-button">Undo</button>
+                        <button id="clear-board-button">Clear Board</button>
+                        <p><button id="reset-game-button">Reset</button></p>
                     </div>
 
                 </div> <!--End of display-names-and-scores div-->
