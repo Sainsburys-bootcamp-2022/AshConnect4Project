@@ -1,34 +1,78 @@
 body {
+    display: flex;
+    flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
     height: 100%;
+    width: fit-content;
+    border: 5px inset;
+    border-color: blue;
+    margin: auto;
+    margin-top: 1%;
+    padding: 7px;
+    border-radius: 1%;
+    
 }
 
 hr {
-    border: 3px solid;
+    border: 2px solid;
     border-radius: 5px;
 }
 
 #header {
+    display: flex;
+    justify-content: center;
+    flex: wrap;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 1%;
 }
 
 #nav-bar {
+    display: flex;
+    justify-content: center;
     background-color: lightgrey;
+    border-top: 5px solid;
+    border-bottom: 5px solid;
+    border-color: black;
+    padding: 6px;
 }
 
 #main {
     display: flex;
-    flex-wrap: wrap;
-    margin: 20px;
+    justify-content: center;
+    margin: 2%;
     height: 100%;
+    background-color: cadetblue;
+    padding: 2%;
+    border: 2px inset;
+    border-color: darkslategray;
+    border-radius: 1%;
+}
+
+#submit-names {
+    display: flex;
+    justify-content: inherit;
+}
+
+#current-player {
+    font-weight: bold;
+}
+
+#current-player-indicator {
+    width: 80px;
+    height: 80px;
+    border: 7px solid;
+    border-color: black;
+    border-radius: 100%;
+    background-color: red;
 }
 
 #grid {
     margin: 0px 0px 0px 20px;
     border: 5px solid;
-    border-radius: 10% 10% 5% 5%;
+    border-radius: 8% 8% 5% 5%;
     background-color: blue;
+    width: 560px;
+    height: 516px;
 
 }
 
@@ -36,12 +80,12 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
+    width: 14.29%;
     height: 70px;
     border: 7px solid;
     border-radius: 100%;
     border-color: black;
-    background-color: white;
+    background-color: cadetblue;
     margin: 1px;
 }
 
@@ -49,6 +93,7 @@ hr {
     display: flex;
     justify-content: center;
     width: 560px;
+    height: auto;
 }
 
 #grid-stand {
@@ -71,16 +116,7 @@ hr {
 }
 
 #names-and-scores {
-    display: flex;
     margin-left: 20px;
-    height: fit-content;
-}
-
-
-#submit-names {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 }
 
 button {
@@ -94,9 +130,6 @@ button {
 }
 
 #footer {
-    width: 99%;
     text-align: right;
-    position: fixed;
-    bottom: 0;
     padding: 0px 0px 5px 0px;
 }
