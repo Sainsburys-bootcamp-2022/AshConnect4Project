@@ -10,7 +10,7 @@
         </div>
         
         <div id="nav-bar">
-            Nav Bar Buttons
+            
         </div>
 
         <div id="main">
@@ -26,9 +26,13 @@
             </div>
 
             <div id="current-player" style="display: none;">
-                    <p>Next Turn:</p>
-                    <div id="current-player-indicator"></div>
-                    <p id="current-player-name"></p>
+                <p>Next Turn:</p>
+                <div id="current-player-indicator"></div>
+                <p id="current-player-name"></p>
+            </div>
+
+            <div id="end-game" style="display:none;">
+                <p id="display-winner">The Winner is: </p>
             </div>
 
             <div id="game-board" style="display:none">
@@ -98,9 +102,9 @@
             <div id="names-and-scores" style="display: none;">
 
                 <div id="display-names-and-scores">
-                    <p>Player 1: </p><p id="display-player-1-name"></p>
+                    <p>Player 1: </p><span id="display-player-1-name"></span>
                     <p>Score: <span id="player-1-score"></span></p>
-                    <p>Player 2:</p><p id="display-player-2-name"></p>
+                    <p>Player 2:</p><span id="display-player-2-name"></span>
                     <p>Score: <span id="player-2-score"></span></p>
                     
                     <div id="display-names-and-scores-buttons">

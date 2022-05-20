@@ -57,7 +57,7 @@ hr {
 }
 
 #current-player-indicator {
-    width:calc();
+    width: 80px;
     height: 80px;
     border: 7px solid;
     border-color: black;

@@ -29,14 +29,14 @@ function hideGame() {
 
     document.getElementById("game-board").style.display = "none"
     document.getElementById("names-and-scores").style.display = "none"
-    document.getElementById("current-player").style.display = "none"
+    displayCurrentPlayer(none)
 }
 
 function drawPlayerTurnIndicactor(historyLog) {
     console.log("drawPlayerTurnIndicator was called.")
 
     let turnColour = "red"
-    document.getElementById("current-player").style.display = "block"
+    displayCurrentPlayer(true)
     if (historyLog.length > 0) {
         turnColour = historyLog.flat().at(-3) === "red" ? "yellow" : "red"
     }
@@ -61,6 +61,26 @@ function displayScores() {
 
 }
 
+function displayEndGame(bool) {
+    console.log("displayEndGame was called.")
+
+    if (bool) {
+        document.getElementById("end-game").style.display = "block"
+    } else if (!bool) {
+        document.getElementById("end-game").style.display = "none"
+    }
+}
+
+function displayCurrentPlayer(bool) {
+    console.log("displayCurrentPlayer was called.")
+
+    if (bool) {
+        document.getElementById("current-player").style.display = "block"
+    } else if (!bool) {
+        document.getElementById("current-player").style.display = "none"
+    }
+}
+
 
 function positionClick(rowIndex, columnIndex) {
     console.log("positionClick was called.")
@@ -68,8 +88,14 @@ function positionClick(rowIndex, columnIndex) {
     takeTurn(rowIndex, columnIndex)
     const board = getBoard()
     drawBoard(board)
-    checkWinner();
-    drawPlayerTurnIndicactor(moveHistory);
+    const winner = checkWinner()
+    if (winner === "draw") {
+        noWinner()
+        displayCurrentPlayer(false)
+        displayEndGame(true)
+    } else {
+    drawPlayerTurnIndicactor(moveHistory)
+    }
 
 }
 
@@ -120,9 +146,13 @@ function resetClick() {
 function undoClick() {
     console.log("undoClick was called.")
 
-    undoLastMove()
-    drawBoard(board)
-    drawPlayerTurnIndicactor(moveHistory)
+    if (turnsTaken === 0){
+        return
+    } else { 
+        undoLastMove()
+        drawBoard(board)
+        drawPlayerTurnIndicactor(moveHistory)
+    }
 }
 
 function playAgainClick() {
