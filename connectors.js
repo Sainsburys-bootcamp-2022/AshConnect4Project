@@ -29,7 +29,7 @@ function hideGame() {
 
     document.getElementById("game-board").style.display = "none"
     document.getElementById("names-and-scores").style.display = "none"
-    displayCurrentPlayer(none)
+    displayCurrentPlayer(false)
 }
 
 function drawPlayerTurnIndicactor(historyLog) {
@@ -88,32 +88,57 @@ function positionClick(rowIndex, columnIndex) {
     takeTurn(rowIndex, columnIndex)
     const board = getBoard()
     drawBoard(board)
-    const winner = checkWinner()
+    const winner = checkWinner(board)
     if (winner === "draw") {
         noWinner()
         displayCurrentPlayer(false)
         displayEndGame(true)
-    } else {
+    } else if (winner === "red") {
+        console.log("REDS WIN")
+        
+        ifWinner("red")
     drawPlayerTurnIndicactor(moveHistory)
+    } else if (winner === "yellow") {
+        console.log("YELLOWS WIN")
+        ifWinner("yellow")
     }
-
 }
 
-function ifWinner() {
+const ifWinner = (colour) => {
     console.log("ifWinner was called.")
 
+    hideGame()
+    displayEndGame(true)
     document.getElementById("play-again-button").style.display = "block"
+
+    document.getElementById("display-winner").innerText = `The winner is ${colour}`
 }
 
 function submitNamesClick() {
     console.log("submitNamesClick was called.")
 
-    let players = []
+    if (checkNames()) {
+        let players = []
+        for (let i=0; i<=1; i++) {
+            players[i] = document.getElementById(`player-${i+1}-input`).value
+        }    
+        setNames(players)
+        startGame()
+    } else {
+        alert("Please enter names for both Players.")
+    }
+          
+}
+
+function checkNames() {
+    console.log("checkNames was called.")
+    
     for (let i=0; i<=1; i++) {
-        players[i] = document.getElementById(`player-${i+1}-input`).value
-    }    
-    setNames(players)
-    startGame()
+        if (document.getElementById(`player-${i+1}-input`).value === "") {
+            return false
+        }
+    }  
+    return true 
 }
 
 function startGame() {
@@ -169,6 +194,10 @@ function clearBoardClick() {
     resetGame()
     drawPlayerTurnIndicactor(moveHistory)
 }
+
+
+
+///// ------ Click Events ------ /////
 
 // Bind the click events for the grid.
 for (let rowIndex = 0; rowIndex < 6; rowIndex++) {

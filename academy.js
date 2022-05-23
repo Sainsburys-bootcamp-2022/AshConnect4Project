@@ -14,11 +14,9 @@ let playerScores = [0,0]
 let turnsTaken = 0
 let gameOver = false
 
-function redsTurnFunc() {
-    console.log("redsTurnFunc was called.")
 
-    redsTurn = true
-}
+const redsTurnFunc = () => {redsTurn = true}
+
 
 function takeTurn(row, col) {
     console.log(`takeTurn was called with row: ${row}, column: ${col}.`)
@@ -47,17 +45,10 @@ function takeTurn(row, col) {
     
 }
 
-function storeMoves(colour, row, col) {
-    console.log("storeMoves was called.")
+const storeMoves = (colour, row, col) => {moveHistory.push([colour, row, col])}
 
-    moveHistory.push([colour, row, col])
-}
+const getBoard = () => {return board}
 
-function getBoard() {
-    console.log("getBoard was called")
-
-    return board
-}
 
 function resetGame() {
     console.log("resetGame was called.")
@@ -77,39 +68,116 @@ function resetGame() {
     return board
 }
 
-function setNames(name) {
-    console.log("setNames was called.")
+const setNames = (names) => players = [...names]
+const getNames = () => players
 
-    players[0] = name[0]
-    players[1] = name[1]
-
-    return players
-}
-
-function getNames() {
-    console.log("getNames was called.")
-
-    return players
-}
 
 function setScores() {
     console.log("setScores was called.")
 
 }
 
-function getScores() {
-    console.log("getScores was called.")
+const getScores = () => playerScores
 
-    return [playerScores]
-}
 
-function checkWinner() {
+function checkWinner(board) {
     console.log("checkWinner was called.")
 
     const drawnGame = turnsTaken === 42 ? true : false
     if (drawnGame) {
         gameOver = true
         return "draw"
+    }
+
+    const flatBoard1 = [
+        0, 1, 2, 3, 4, 5, 6,
+        7, 8, 9, 10, 11, 12, 13,
+        14, 15, 16, 17, 18, 19, 20,
+        21, 22, 23, 24, 25, 26, 27,
+        28, 29, 30, 31, 32, 33, 34,
+        35, 36, 37, 38, 39, 40, 41
+    ]
+
+    const flatBoard = [...board].flat()
+    console.log(flatBoard)
+    console.log(board)
+
+    let playerColour = ""
+    if (!redsTurn) {
+        playerColour = "red"
+    } else {
+        playerColour = "yellow"
+    }
+
+    //check horizontal
+    for (let i = 0; i <= 42; i++) {
+        let counter = 0
+        if (flatBoard[i] === playerColour) {
+            let k = i;
+            for (let j = 0; j < 4; j++) {
+                if (flatBoard[k] === playerColour) {
+                    counter += 1
+                    if (counter === 3 && (k === 6 || k === 13 || k === 20 || k === 27 || k === 34)) {
+                        break
+                    }
+                    k++
+                    if (counter === 4) {
+                        return playerColour
+                    }
+                }
+            }        
+        }
+    }
+
+    //check vertical
+    for (let i = 0; i <= 42; i++) {
+        let counter = 0
+        if (flatBoard[i] === playerColour) {
+            let k = i;
+            for (let j = 0; j < 4; j++) {
+                if (flatBoard[k] === playerColour) {
+                    counter += 1
+                    k -= 7
+                    if (counter === 4) {
+                        return playerColour
+                    }
+                }
+            }        
+        }
+    }
+
+    //check horizontal-left
+    for (let i = 0; i <= 42; i++) {
+        let counter = 0
+        if (flatBoard[i] === playerColour) {
+            let k = i;
+            for (let j = 0; j < 4; j++) {
+                if (flatBoard[k] === playerColour) {
+                    counter += 1
+                    k -= 8
+                    if (counter === 4) {
+                        return playerColour
+                    }
+                }
+            }        
+        }
+    }
+
+    //check horizontal-right
+    for (let i = 0; i <= 42; i++) {
+        let counter = 0
+        if (flatBoard[i] === playerColour) {
+            let k = i;
+            for (let j = 0; j < 4; j++) {
+                if (flatBoard[k] === playerColour) {
+                    counter += 1
+                    k -= 6
+                    if (counter === 4) {
+                        return playerColour
+                    }
+                }
+            }        
+        }
     }
 }
 
