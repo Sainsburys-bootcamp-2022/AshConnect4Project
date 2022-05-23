@@ -1,0 +1,144 @@
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    min-width: fit-content;
+    border: 5px inset;
+    border-color: blue;
+    margin: auto;
+    margin-top: 1%;
+    padding: 7px;
+    border-radius: 1%; 
+    max-width: 95%;
+    font-weight: bold;
+}
+
+hr {
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    flex: wrap;
+    margin-left: 1%;
+}
+
+#nav-bar {
+    display: flex;
+    justify-content: center;
+    background-color: lightgrey;
+    border-top: 5px solid;
+    border-bottom: 5px solid;
+    border-color: black;
+    padding: 6px;
+}
+
+#main {
+    display: flex;
+    justify-content: center;
+    column-gap: 2%;
+    margin: 2%;
+    height: 100%;
+    background-color: cadetblue;
+    padding: 2%;
+    border: 2px inset;
+    border-color: darkslategray;
+    border-radius: 1%;
+}
+
+#current-player {
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+#current-player-indicator {
+    width: 80px;
+    height: 80px;
+    border: 7px solid;
+    border-color: black;
+    border-radius: 100%;
+    background-color: red;
+}
+
+#current-player-name {
+    display: flex;
+    justify-self: center;
+}
+
+#game-board {
+    width: 64%;
+    max-width: 560px;
+}
+
+#grid {
+    border: 5px solid;
+    border-radius: 8% 8% 5% 5%;
+    background-color: blue;
+    height: 516px;
+}
+
+.column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 14.29%;
+    height: 70px;
+    border: 7px solid;
+    border-radius: 100%;
+    border-color: black;
+    background-color: cadetblue;
+    margin: 1px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+#grid-stand {
+    border: 5px solid;
+    border-color: black;
+    background-color: blue;
+    height: 15px;
+    border-radius: 15% 15% 0% 0%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 5px;
+}
+
+#grid-text {
+    display: flex;
+    font-size: x-small;
+    color: darkblue;
+}
+
+#names-and-scores {
+    min-width: 150px;
+}
+
+button {
+    margin: 10px 0px 10px 0px;
+    padding: 3%;
+    width: 80%;
+    font-weight: bold;
+
+}
+
+#display-names-and-scores {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#footer {
+    text-align: right;
+    padding: 0px 0px 5px 0px;
+}
