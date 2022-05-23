@@ -1,3 +1,14 @@
+let pageLoad = (function() {
+    console.log("pageLoad was called.")
+    document.getElementById("current-player").style.display = "none"
+    document.getElementById("game-board").style.display = "none"
+    document.getElementById("names-and-scores").style.display = "none"
+})()
+
+const resetCurrentGameAndBoard = () => {
+    
+}
+
 function clearDrawnBoard() {
     console.log("clearBoard was called.")
 
@@ -94,12 +105,8 @@ function positionClick(rowIndex, columnIndex) {
         displayCurrentPlayer(false)
         displayEndGame(true)
     } else if (winner === "red") {
-        console.log("REDS WIN")
-        
         ifWinner("red")
-    drawPlayerTurnIndicactor(moveHistory)
     } else if (winner === "yellow") {
-        console.log("YELLOWS WIN")
         ifWinner("yellow")
     }
 }
@@ -107,10 +114,10 @@ function positionClick(rowIndex, columnIndex) {
 const ifWinner = (colour) => {
     console.log("ifWinner was called.")
 
+    const addScore = (colour === "red") ? setScores(1, 0) : setScores (0, 1)
     hideGame()
     displayEndGame(true)
     document.getElementById("play-again-button").style.display = "block"
-
     document.getElementById("display-winner").innerText = `The winner is ${colour}`
 }
 
@@ -148,6 +155,7 @@ function startGame() {
     drawBoard(board)
     drawPlayerTurnIndicactor(moveHistory)
     drawNamesAndScores()
+    setPlayerColour("red")
 }
 
 function clearNamesClick() {

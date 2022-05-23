@@ -17,6 +17,17 @@ let gameOver = false
 
 const redsTurnFunc = () => {redsTurn = true}
 
+const setPlayerColour = (colour) => {
+    console.log("setPlayerColour was called.")
+
+    return colour
+}
+
+const getPlayerColour = () => {
+    console.log("getPlayerColour was called.")
+
+}
+
 
 function takeTurn(row, col) {
     console.log(`takeTurn was called with row: ${row}, column: ${col}.`)
@@ -72,9 +83,12 @@ const setNames = (names) => players = [...names]
 const getNames = () => players
 
 
-function setScores() {
+const setScores = (player1, player2) => {
     console.log("setScores was called.")
-
+    
+    playerScores[0] += player1
+    playerScores[1] += player2
+    return playerScores
 }
 
 const getScores = () => playerScores
@@ -89,96 +103,101 @@ function checkWinner(board) {
         return "draw"
     }
 
-    const flatBoard1 = [
-        0, 1, 2, 3, 4, 5, 6,
-        7, 8, 9, 10, 11, 12, 13,
-        14, 15, 16, 17, 18, 19, 20,
-        21, 22, 23, 24, 25, 26, 27,
-        28, 29, 30, 31, 32, 33, 34,
-        35, 36, 37, 38, 39, 40, 41
-    ]
+    const checkforWinner = (directionValue) => {
+        console.log(`checkforWinner was called with directionValue ${directionValue}.`)
 
-    const flatBoard = [...board].flat()
-    console.log(flatBoard)
-    console.log(board)
-
-    let playerColour = ""
-    if (!redsTurn) {
-        playerColour = "red"
-    } else {
-        playerColour = "yellow"
+        let playerColour = ""
+        if (!redsTurn) {
+            playerColour = "red"
+        } else {
+            playerColour = "yellow"
+        }
+        const flatBoard = [...board].flat()
+        for (const i in flatBoard) {
+            const checkColour = (flatBoard[i] === playerColour) ? true : false
+            if (checkColour) {
+                const fourValues = [flatBoard.at(parseInt(i)), flatBoard.at(parseInt(i)+directionValue), flatBoard.at(parseInt(i)+directionValue+directionValue), flatBoard.at(parseInt(i)+directionValue+directionValue+directionValue)]
+                const fourMatches = fourValues.every(element => element === playerColour)
+                const horizontalErrors = [6, 13, 20, 27, 34]
+                if ((horizontalErrors.every(element => element != parseInt(i)+2)) && fourMatches) {
+                    return playerColour
+                }
+            }
+        }
     }
+
+    return checkforWinner(1) || checkforWinner(-7) || checkforWinner(-8) || checkforWinner(-6)
 
     //check horizontal
-    for (let i = 0; i <= 42; i++) {
-        let counter = 0
-        if (flatBoard[i] === playerColour) {
-            let k = i;
-            for (let j = 0; j < 4; j++) {
-                if (flatBoard[k] === playerColour) {
-                    counter += 1
-                    if (counter === 3 && (k === 6 || k === 13 || k === 20 || k === 27 || k === 34)) {
-                        break
-                    }
-                    k++
-                    if (counter === 4) {
-                        return playerColour
-                    }
-                }
-            }        
-        }
-    }
+    // for (let i = 0; i <= 42; i++) {
+    //     let counter = 0
+    //     if (flatBoard[i] === playerColour) {
+    //         let k = i;
+    //         for (let j = 0; j < 4; j++) {
+    //             if (flatBoard[k] === playerColour) {
+    //                 counter += 1
+    //                 if (counter === 3 && (k === 6 || k === 13 || k === 20 || k === 27 || k === 34)) {
+    //                     break
+    //                 }
+    //                 k++
+    //                 if (counter === 4) {
+    //                     return playerColour
+    //                 }
+    //             }
+    //         }        
+    //     }
+    // }
 
     //check vertical
-    for (let i = 0; i <= 42; i++) {
-        let counter = 0
-        if (flatBoard[i] === playerColour) {
-            let k = i;
-            for (let j = 0; j < 4; j++) {
-                if (flatBoard[k] === playerColour) {
-                    counter += 1
-                    k -= 7
-                    if (counter === 4) {
-                        return playerColour
-                    }
-                }
-            }        
-        }
-    }
+    // for (let i = 0; i <= 42; i++) {
+    //     let counter = 0
+    //     if (flatBoard[i] === playerColour) {
+    //         let k = i;
+    //         for (let j = 0; j < 4; j++) {
+    //             if (flatBoard[k] === playerColour) {
+    //                 counter += 1
+    //                 k -= 7
+    //                 if (counter === 4) {
+    //                     return playerColour
+    //                 }
+    //             }
+    //         }        
+    //     }
+    // }
 
-    //check horizontal-left
-    for (let i = 0; i <= 42; i++) {
-        let counter = 0
-        if (flatBoard[i] === playerColour) {
-            let k = i;
-            for (let j = 0; j < 4; j++) {
-                if (flatBoard[k] === playerColour) {
-                    counter += 1
-                    k -= 8
-                    if (counter === 4) {
-                        return playerColour
-                    }
-                }
-            }        
-        }
-    }
+    // //check horizontal-left
+    // for (let i = 0; i <= 42; i++) {
+    //     let counter = 0
+    //     if (flatBoard[i] === playerColour) {
+    //         let k = i;
+    //         for (let j = 0; j < 4; j++) {
+    //             if (flatBoard[k] === playerColour) {
+    //                 counter += 1
+    //                 k -= 8
+    //                 if (counter === 4) {
+    //                     return playerColour
+    //                 }
+    //             }
+    //         }        
+    //     }
+    // }
 
-    //check horizontal-right
-    for (let i = 0; i <= 42; i++) {
-        let counter = 0
-        if (flatBoard[i] === playerColour) {
-            let k = i;
-            for (let j = 0; j < 4; j++) {
-                if (flatBoard[k] === playerColour) {
-                    counter += 1
-                    k -= 6
-                    if (counter === 4) {
-                        return playerColour
-                    }
-                }
-            }        
-        }
-    }
+    // //check horizontal-right
+    // for (let i = 0; i <= 42; i++) {
+    //     let counter = 0
+    //     if (flatBoard[i] === playerColour) {
+    //         let k = i;
+    //         for (let j = 0; j < 4; j++) {
+    //             if (flatBoard[k] === playerColour) {
+    //                 counter += 1
+    //                 k -= 6
+    //                 if (counter === 4) {
+    //                     return playerColour
+    //                 }
+    //             }
+    //         }        
+    //     }
+    // }
 }
 
 function noWinner() {
