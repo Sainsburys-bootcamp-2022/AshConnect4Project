@@ -7,67 +7,154 @@ let board = [
     [null, null, null, null, null, null, null]
 ]
 
-let moveHistory = []
-let redsTurn = true
-let players = []
-let playerScores = [0,0]
+
+let playerNames = []
+let playerColours = ["red", "yellow"]
+let playerScores = [0, 0]
+let currentColour = "red"
 let turnsTaken = 0
+let moveHistory = []
 let gameOver = false
 
 
-const redsTurnFunc = () => {redsTurn = true}
+////// GETTERS AND SETTERS ///////
 
-const setPlayerColour = (colour) => {
-    console.log("setPlayerColour was called.")
-
-    return colour
+const setGameOver = (bool) => {
+    console.log("setGameOver was called.")
+    gameOver = bool
 }
 
-const getPlayerColour = () => {
-    console.log("getPlayerColour was called.")
-
+const getGameOver = () => {
+    console.log("getGameOver was called.")
+    return gameOver
 }
 
-
-function takeTurn(row, col) {
-    console.log(`takeTurn was called with row: ${row}, column: ${col}.`)
-
-    if (!gameOver) {
-        if (board[row][col] === null) {
-            for (let i = 5; i >= 0; i--) {
-                if (board[i][col] === null && redsTurn) {
-                    board[i][col] = "red"
-                    storeMoves("red", i, col)
-                    turnsTaken++
-                    redsTurn = false
-                    break
-                } else if (board[i][col] === null && !redsTurn) {
-                    board[i][col] = "yellow"
-                    storeMoves( "yellow", i, col)
-                    turnsTaken++
-                    redsTurn = true
-                    break
-                }
-            }
-        } else {
-            console.log("That piece is unavilable.")
-        }
+const setPlayerNames = (names) => {
+    console.log("setPlayerNames was called.")
+    for(i in names) {
+        playerNames[i] = names[i]
     }
-    
 }
 
-const storeMoves = (colour, row, col) => {moveHistory.push([colour, row, col])}
+const getPlayerNames = () => {
+    console.log("getPlayerNames was called.")
+    return playerNames
+}
 
-const getBoard = () => {return board}
+const setPlayerColours = () => {
+    console.log("setPlayerColours was called.")
+
+}
+
+const getPlayerColours = () => {
+    console.log("getPlayerColours was called.")
+
+}
+
+const setPlayerScores = (num1, num2) => {
+    console.log("setPlayerScores was called.")
+    if (num1 >= 1) {
+        playerScores[0] += num1
+    } else {
+        playerScores[0] = 0
+    }
+
+    if (num2 >= 1) {
+        playerScores[1] += num2
+    } else {
+        playerScores[1] = 0
+    }
+}
+
+const getPlayerScores = () => {
+    console.log("getPlayerScores was called.")
+    return playerScores
+}
+
+const setMoveHistory = (colour, row, col, arr) => {
+    console.log("setMoveHistory was called.")
+    moveHistory.push([colour, row, col])
+
+    if (arr) {
+        console.log("setMoveHistory IF STATEMENT entered.")
+        moveHistory = arr
+        console.log("moveHistory:", moveHistory)
+    }
+}
+
+const getMoveHistory = () => {
+    console.log("getMoveHistory was called.")
+    return moveHistory
+}
+
+const setBoardData = () => {
+    console.log("setBoardData was called.")
+}
+
+const getBoardData = () => {
+    console.log("getBoardData was called.")
+
+}
+
+const setCurrentColour = (colour) => {
+    console.log("setCurrentColour was called.")
+    currentColour = (colour === "red") ? "red" : "yellow"
+}
+
+const getCurrentColour = () => {
+    //console.log("getCurrentColour was called.")
+    return currentColour
+}
+
+const setTurnsTaken = (amount) => {
+    console.log("setTurnsTaken was called.")
+    if (amount === 0) {
+        turnsTaken = 0
+        displayUndoButton(false)
+    } else {
+        turnsTaken += amount
+        displayUndoButton(true)
+    }
+}
+
+const getTurnsTaken = () => {
+    console.log("getTurnsTaken was called.")
+    return turnsTaken
+}
 
 
-function resetGame() {
-    console.log("resetGame was called.")
 
-    document.getElementById("end-game").style.display = "none"
-    moveHistory = []
-    turnsTaken = 0
-    gameOver = false
+////// GAME FUNCTIONS ///////
+
+const takeTurn = (row, col) => {
+    console.log("takeTurn was called.")
+
+    if (board[row][col] === null) {
+        for (let i = 5; i >= 0; i--) {
+            if (board[i][col] === null && getCurrentColour() === "red") {
+                board[i][col] = "red"
+                setMoveHistory("red", i, col)
+                displayTurnIndicator()
+                setCurrentColour("yellow")
+                setTurnsTaken(1)
+                break
+            } else if (board[i][col] === null && getCurrentColour()  === "yellow") {
+                board[i][col] = "yellow"
+                setMoveHistory("yellow", i, col)
+                displayTurnIndicator()
+                setCurrentColour("red")
+                setTurnsTaken(1)
+                break
+            }
+        }
+    } else {
+        console.log("ERROR: That space is unavilable.")
+    }
+    drawBoard(board)
+}
+
+const resetBoard = () => {
+    console.log("resetBoard was called.")
     board = [
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
@@ -76,145 +163,35 @@ function resetGame() {
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null]
     ]
-    return board
 }
 
-const setNames = (names) => players = [...names]
-const getNames = () => players
-
-
-const setScores = (player1, player2) => {
-    console.log("setScores was called.")
-    
-    playerScores[0] += player1
-    playerScores[1] += player2
-    return playerScores
-}
-
-const getScores = () => playerScores
-
-
-function checkWinner(board) {
+const checkWinner = (board) => {
     console.log("checkWinner was called.")
 
-    const drawnGame = turnsTaken === 42 ? true : false
+    const horizontal = 1
+    const vertical = -7
+    const diagonalLeft = -8
+    const diagonalRight = -6
+    const turns = getTurnsTaken()
+    const drawnGame = (turns === 42) ? true : false
     if (drawnGame) {
-        gameOver = true
-        return "draw"
+       return "draw"
     }
-
-    const checkforWinner = (directionValue) => {
-        console.log(`checkforWinner was called with directionValue ${directionValue}.`)
-
-        let playerColour = ""
-        if (!redsTurn) {
-            playerColour = "red"
-        } else {
-            playerColour = "yellow"
-        }
+    const checkAllDirections = (directionValue) => {
+        console.log(`checkAllDirections was called with directionValue ${directionValue}.`)
         const flatBoard = [...board].flat()
+        const colour = (getCurrentColour() === "red") ? "yellow" : "red"
         for (const i in flatBoard) {
-            const checkColour = (flatBoard[i] === playerColour) ? true : false
+            const checkColour = (flatBoard[i] === colour) ? true : false
             if (checkColour) {
                 const fourValues = [flatBoard.at(parseInt(i)), flatBoard.at(parseInt(i)+directionValue), flatBoard.at(parseInt(i)+directionValue+directionValue), flatBoard.at(parseInt(i)+directionValue+directionValue+directionValue)]
-                const fourMatches = fourValues.every(element => element === playerColour)
+                const fourMatches = fourValues.every(element => element === colour)
                 const horizontalErrors = [6, 13, 20, 27, 34]
                 if ((horizontalErrors.every(element => element != parseInt(i)+2)) && fourMatches) {
-                    return playerColour
+                    return colour
                 }
             }
         }
     }
-
-    return checkforWinner(1) || checkforWinner(-7) || checkforWinner(-8) || checkforWinner(-6)
-
-    //check horizontal
-    // for (let i = 0; i <= 42; i++) {
-    //     let counter = 0
-    //     if (flatBoard[i] === playerColour) {
-    //         let k = i;
-    //         for (let j = 0; j < 4; j++) {
-    //             if (flatBoard[k] === playerColour) {
-    //                 counter += 1
-    //                 if (counter === 3 && (k === 6 || k === 13 || k === 20 || k === 27 || k === 34)) {
-    //                     break
-    //                 }
-    //                 k++
-    //                 if (counter === 4) {
-    //                     return playerColour
-    //                 }
-    //             }
-    //         }        
-    //     }
-    // }
-
-    //check vertical
-    // for (let i = 0; i <= 42; i++) {
-    //     let counter = 0
-    //     if (flatBoard[i] === playerColour) {
-    //         let k = i;
-    //         for (let j = 0; j < 4; j++) {
-    //             if (flatBoard[k] === playerColour) {
-    //                 counter += 1
-    //                 k -= 7
-    //                 if (counter === 4) {
-    //                     return playerColour
-    //                 }
-    //             }
-    //         }        
-    //     }
-    // }
-
-    // //check horizontal-left
-    // for (let i = 0; i <= 42; i++) {
-    //     let counter = 0
-    //     if (flatBoard[i] === playerColour) {
-    //         let k = i;
-    //         for (let j = 0; j < 4; j++) {
-    //             if (flatBoard[k] === playerColour) {
-    //                 counter += 1
-    //                 k -= 8
-    //                 if (counter === 4) {
-    //                     return playerColour
-    //                 }
-    //             }
-    //         }        
-    //     }
-    // }
-
-    // //check horizontal-right
-    // for (let i = 0; i <= 42; i++) {
-    //     let counter = 0
-    //     if (flatBoard[i] === playerColour) {
-    //         let k = i;
-    //         for (let j = 0; j < 4; j++) {
-    //             if (flatBoard[k] === playerColour) {
-    //                 counter += 1
-    //                 k -= 6
-    //                 if (counter === 4) {
-    //                     return playerColour
-    //                 }
-    //             }
-    //         }        
-    //     }
-    // }
-}
-
-function noWinner() {
-    console.log("noWinner was called.")
-
-    
-}
-
-function undoLastMove() {
-    console.log("undoLastMove was called.")
-
-    const lastMove = moveHistory.at(-1)
-    board[lastMove[1]][lastMove[2]] = null
-    redsTurn = lastMove[0] === "red" ? true : false
-    moveHistory.pop()
-    turnsTaken--
-    document.getElementById("end-game").style.display = "none"
-    gameOver = false
-
+    return checkAllDirections(horizontal) || checkAllDirections(vertical) || checkAllDirections(diagonalLeft) || checkAllDirections(diagonalRight)
 }
