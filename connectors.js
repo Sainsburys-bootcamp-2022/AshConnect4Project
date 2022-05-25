@@ -21,6 +21,7 @@ const startNewGame = () => {
     writePlayerScores()
     displayTurnIndicator()
     setTurnsTaken(0)
+    changeGameColours()
 }
 
 const drawBoard = () => {
@@ -31,7 +32,7 @@ const drawBoard = () => {
             if (!board[rowIndex][columnIndex]) {
                 continue;
             }
-            const cellText = board[rowIndex][columnIndex] === "red" ? "red" : "yellow"
+            const cellText = board[rowIndex][columnIndex] === playerColours[0] ? playerColours[0] : playerColours[1]
             document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = cellText
         }
     }
@@ -41,7 +42,8 @@ const clearBoard = () => {
     console.log("clearBoard was called.")
     for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
         for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
-            document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = "cadetblue"
+            const colour = getBackgroundColour()
+            document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = colour
         }
     }
 }
@@ -49,13 +51,13 @@ const clearBoard = () => {
 const displayTurnIndicator = () => {
     console.log("displayTurnIndicator was called.")
     const moves = getMoveHistory()
-    let turnColour = "red"
+    let turnColour = playerColours[0]
     if (moves.length > 0) {
-        turnColour = (moves.flat().at(-3) === "red") ? "yellow" : "red"
+        turnColour = (moves.flat().at(-3) === playerColours[0]) ? playerColours[1] : playerColours[0]
     }
     document.getElementById("current-player-indicator").style.backgroundColor = turnColour
     const names = getPlayerNames()
-    if (turnColour === "red") {
+    if (turnColour === playerColours[0]) {
         document.getElementById("current-player-name").innerText = names[0]
     } else {
         document.getElementById("current-player-name").innerText = names[1]
@@ -81,10 +83,10 @@ const writePlayerScores = () => {
 
 const gameResult = (result) => {
     console.log("gameResult was called.")
-    if (result === "red") {
+    if (result === playerColours[0]) {
         setPlayerScores(1, null)
         endGame(result)
-    } else if (result === "yellow") {
+    } else if (result === playerColours[1]) {
         setPlayerScores(null, 1)
         endGame(result)
     } else if (result === "draw") {
@@ -96,9 +98,9 @@ const endGame = (result) => {
     console.log("endGame was called.")
     setGameOver(true)
     writePlayerScores()
-    if (result === "red") {
+    if (result === playerColours[0]) {
         result = 0
-    } else if (result === "yellow") {
+    } else if (result === playerColours[1]) {
         result = 1
     }
     const names = getPlayerNames()
@@ -156,15 +158,22 @@ const submitNamesClick = () => {
         }
         return true
     }
-    //sets the names of the players.
+    //sets the names and colours of the players.
     if (checkIfNamesEntered) {
-        let enteredNames = []
-        for (let i=0; i<=1; i++) {
-            enteredNames[i] = document.getElementById(`player-${i+1}-input`).value
-        }
-        setPlayerNames(enteredNames)
-        startNewGame()
-        clearNamesClick()
+        const selectedColours = [document.getElementById(`player-1-colour`).value, document.getElementById(`player-2-colour`).value]
+        if (selectedColours[0] === selectedColours[1]) {
+            alert("Please select different colours for each Player!")
+        } else {
+            let enteredNames = []
+            for (let i=0; i<=1; i++) {
+                enteredNames[i] = document.getElementById(`player-${i+1}-input`).value
+            }
+            setPlayerNames(enteredNames)
+            setPlayerColours(selectedColours)
+            setCurrentColour(playerColours[0])
+            startNewGame()
+            clearNamesClick()
+    }
     } else {
         alert("Please enter names for both Players.") 
     }
@@ -215,6 +224,19 @@ const playAgainClick = () => {
     displayUndoButton(true)
 }
 
+const changeGameColours = () => {
+    console.log("changeGameColours was called.")
+    const backgroundColour = document.getElementById("background-colour").value
+    setBackgroundColour(backgroundColour)
+    document.getElementById("main").style.backgroundColor = backgroundColour
+    const columns = document.querySelectorAll('.column')
+    columns.forEach(element => element.style.backgroundColor = backgroundColour)
+    const gridColour = document.getElementById("grid-colour").value
+    setGridColour(gridColour)
+    document.getElementById("grid").style.backgroundColor = gridColour
+    document.getElementById("grid-stand").style.backgroundColor = gridColour
+}
+
 ///// ------ Click Events ------ /////
 
 // Bind the click events for the grid.
@@ -226,25 +248,25 @@ for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
 }
 
 // Bind the click event for the submit-button button.
-const submitNamesButton = document.getElementById("submit-names-button");
-submitNamesButton.addEventListener("click", submitNamesClick);
+const submitNamesButton = document.getElementById("submit-names-button")
+submitNamesButton.addEventListener("click", submitNamesClick)
 
 // Bind the click event for the clear-names-button.
-const clearNamesButton = document.getElementById("clear-names-button");
-clearNamesButton.addEventListener("click", clearNamesClick);
+const clearNamesButton = document.getElementById("clear-names-button")
+clearNamesButton.addEventListener("click", clearNamesClick)
 
 // Bind the click event for the reset-game-button.
-const resetButton = document.getElementById("reset-game-button");
-resetButton.addEventListener("click", resetClick);
+const resetButton = document.getElementById("reset-game-button")
+resetButton.addEventListener("click", resetClick)
 
 // Bind the click event for the undo-last-move-button.
-const undoButton = document.getElementById("undo-last-move-button");
-undoButton.addEventListener("click", undoClick);
+const undoButton = document.getElementById("undo-last-move-button")
+undoButton.addEventListener("click", undoClick)
 
 // Bind the click event for the clear-board-button.
-const clearBoardButton = document.getElementById("clear-board-button");
-clearBoardButton.addEventListener("click", clearBoardClick);
+const clearBoardButton = document.getElementById("clear-board-button")
+clearBoardButton.addEventListener("click", clearBoardClick)
 
 // Bind the click event for the play-again-button.
-const playAgainButton = document.getElementById("play-again-button");
-playAgainButton.addEventListener("click", playAgainClick);
+const playAgainButton = document.getElementById("play-again-button")
+playAgainButton.addEventListener("click", playAgainClick)

@@ -53,6 +53,16 @@ hr {
     border-radius: 1%;
 }
 
+#select-grid-colour {
+    margin-top: 6%;
+}
+
+#select-background-colour {
+    align-self: center;
+    justify-self: flex-end;
+    margin-top: 3%;
+}
+
 #current-player {
     display: flex;
     height: fit-content;
@@ -125,7 +135,8 @@ hr {
 }
 
 #names-and-scores {
-    min-width: 150px;
+    min-width: 200px;
+
 }
 
 button {
@@ -133,6 +144,7 @@ button {
     padding: 3%;
     width: 80%;
     font-weight: bold;
+    min-width: 80px;
 
 }
 

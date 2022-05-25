@@ -6,9 +6,9 @@
     </head>
     <body>
         <div id="header">
-            <h1>Connect 4</h1>
+            <div id="header-title"><h1>Connect 4</h1></div>
         </div>
-        
+
         <div id="winner-bar" style="display:block">
             <div id="end-game" style="display:block;">
                 <p id="display-winner"></p>
@@ -19,13 +19,92 @@
 
             <div id="submit-names" style="display:block">
                 <p id="submit-names-header">Please enter your names...</p>
-                <p>Player 1: <input id="player-1-input"></p>
-                <p>Player 2: <input id="player-2-input"></p>
+                <p>Player 1: <input id="player-1-input"> <select id="player-1-colour">
+                    <option value="red">Red</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="blue">Blue</option>
+                    <option value="white">White</option>
+                    <option value="black">Black</option>
+                    <option value="orange">Orange</option>
+                    <option value="grey">Grey</option>
+                    <option value="pink">Pink</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="gold">Gold</option>
+                    <option value="silver">Silver</option>
+                    <option value="brown">Brown</option></select></p>
+                <p>Player 2: <input id="player-2-input"> <select id="player-2-colour">
+                    <option value="yellow">Yellow</option>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="white">White</option>
+                    <option value="black">Black</option>
+                    <option value="orange">Orange</option>
+                    <option value="grey">Grey</option>
+                    <option value="pink">Pink</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="gold">Gold</option>
+                    <option value="silver">Silver</option>
+                    <option value="brown">Brown</option></select></p>
                 <div id="submit-names-buttons">
                     <button id="submit-names-button">Submit Names</button>
                     <button id="clear-names-button">Clear</button>
                 </div>
+
+                <div id="select-grid-colour">Grid Colour: <select id="grid-colour">
+                    <option value="blue">DEFAULT: Blue</option>
+                    <option value="cadetblue">Cadet Blue</option>
+                    <option value="cornflowerblue">Cornflower Blue</option>
+                    <option value="crimson">Crimson</option>
+                    <option value="burlywood">Burlywood</option>
+                    <option value="chartreuse">Chartreuse</option>
+                    <option value="mediumslateblue">Medium Slate Blue</option>
+                    <option value="coral">Coral</option>
+                    <option value="papayawhip">Papaya Whip</option>
+                    <option value="dodgerblue">Dodger Blue</option>
+                    <option value="#c29ec2">Pantone 522</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="red">Red</option>
+                    <option value="white">White</option>
+                    <option value="black">Black</option>
+                    <option value="orange">Orange</option>
+                    <option value="grey">Grey</option>
+                    <option value="pink">Pink</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="gold">Gold</option>
+                    <option value="silver">Silver</option>
+                    <option value="brown">Brown</option></select>
+                </div>
+                <div id="select-background-colour">Background Colour: <select id="background-colour">
+                    <option value="cadetblue">DEFAULT: Cadet Blue</option>
+                    <option value="blue">Blue</option>
+                    <option value="cornflowerblue">Cornflower Blue</option>
+                    <option value="crimson">Crimson</option>
+                    <option value="burlywood">Burlywood</option>
+                    <option value="chartreuse">Chartreuse</option>
+                    <option value="mediumslateblue">Medium Slate Blue</option>
+                    <option value="coral">Coral</option>
+                    <option value="papayawhip">Papaya Whip</option>
+                    <option value="dodgerblue">Dodger Blue</option>
+                    <option value="#c29ec2">Pantone 522</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="red">Red</option>
+                    <option value="white">White</option>
+                    <option value="black">Black</option>
+                    <option value="orange">Orange</option>
+                    <option value="grey">Grey</option>
+                    <option value="pink">Pink</option>
+                    <option value="green">Green</option>
+                    <option value="purple">Purple</option>
+                    <option value="gold">Gold</option>
+                    <option value="silver">Silver</option>
+                    <option value="brown">Brown</option></select>
+                </div>
             </div>
+
+            
 
             <div id="current-player" style="display: block;">
                 <p>Next Turn:</p>
