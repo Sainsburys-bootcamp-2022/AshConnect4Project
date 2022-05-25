@@ -3,13 +3,13 @@ const pageLoad = () => {
     document.getElementById("current-player").style.display = "none"
     document.getElementById("game-board").style.display = "none"
     document.getElementById("names-and-scores").style.display = "none"
-    document.getElementById("submit-names").style.display = "block"
+    document.getElementById("setup-game").style.display = "block"
 }
 pageLoad()
 
 const startNewGame = () => {
     console.log("startNewGame was called.")
-    document.getElementById("submit-names").style.display = "none"
+    document.getElementById("setup-game").style.display = "none"
     document.getElementById("current-player").style.display = "block"
     document.getElementById("game-board").style.display = "block"
     document.getElementById("names-and-scores").style.display = "block"
@@ -173,7 +173,7 @@ const submitNamesClick = () => {
             setCurrentColour(playerColours[0])
             startNewGame()
             clearNamesClick()
-    }
+        }
     } else {
         alert("Please enter names for both Players.") 
     }
@@ -236,6 +236,7 @@ const changeGameColours = () => {
     document.getElementById("grid").style.backgroundColor = gridColour
     document.getElementById("grid-stand").style.backgroundColor = gridColour
 }
+
 
 ///// ------ Click Events ------ /////
 

@@ -189,40 +189,42 @@ const resetBoard = () => {
 
 const checkWinner = (board) => {
     console.log("checkWinner was called.")
-
-    const horizontal = 1
-    const vertical = -7
-    const diagonalLeft = -8
-    const diagonalRight = -6
     const turns = getTurnsTaken()
     const drawnGame = (turns === 42) ? true : false
     if (drawnGame) {
        return "draw"
     }
-    const checkAllDirections = (directionValue) => {
+    const horizontal = 1 //four values to pass into the direction value for the following function.
+    const vertical = -7
+    const diagonalLeft = -8
+    const diagonalRight = -6
+    const checkAllDirections = (directionValue) => { //function to check for a sequence of four of the same colour. Works for all directions.
         console.log(`checkAllDirections was called with directionValue ${directionValue}.`)
-        const flatBoard = [...board].flat()
-        const colour = (getCurrentColour() === playerColours[0]) ? playerColours[1] : playerColours[0]
-        for (const i in flatBoard) {
-            const checkColour = (flatBoard[i] === colour) ? true : false
-            if (checkColour) {
-                const indexes = [parseInt(i), parseInt(i)+directionValue, parseInt(i)+directionValue+directionValue, parseInt(i)+directionValue+directionValue+directionValue]
-                const rightErrors = [6, 13, 20, 27, 34, 41]
-                const leftErrors = [0, 7, 14, 21, 28, 35]
-                const rightErrorFound = indexes.some(element => rightErrors.includes(element))
-                const leftErrorFound = indexes.some(element => leftErrors.includes(element))
-                let errorFound = false
-                if (rightErrorFound && leftErrorFound) {
-                    console.log("ERRORFOUND")
-                    errorFound = true
+        const flatBoard = [...board].flat()     //creates a new array of the board but flattened.
+        const colour = (getCurrentColour() === playerColours[0]) ? playerColours[1] : playerColours[0] //sets the current colour to check.
+        for (const i in flatBoard) { //starts a loop that goes through every index of the new array.
+            const checkColour = (flatBoard[i] === colour) ? true : false //checks if the current index is the current colour.
+            if (checkColour) { //if the current index is the current colour. Stops the loop from wasting time by checking the previous colour that was checked last turn.
+                const indexes = [parseInt(i), parseInt(i)+directionValue, parseInt(i)+(directionValue*2), parseInt(i)+(directionValue*3)] //sets an array starting at the current index and the next four pieces in the sequence.
+                console.log("CURRENT INDEXES:", indexes)
+                if (indexes.some(element => element < 0)) { //if any of the current sequenece are a negative number stops this iteration and moves to the next one.
+                    console.log("ERROR FOUND: NEGATIVE NUMBER")
+                    continue
                 }
-                const fourValues = [flatBoard.at(indexes[0]), flatBoard.at(indexes[1]), flatBoard.at(indexes[2]), flatBoard.at(indexes[3])]
-                const fourMatches = fourValues.every(element => element === colour)
-                if (fourMatches && !errorFound) {
+                const potentialErrors = [[6, 13, 20, 27, 34, 41], [0, 7, 14, 21, 28, 35]] //an array of both sides of the board. Used to check for overlaps errors.
+                const rightErrorFound = indexes.some(element => potentialErrors[0].includes(element)) //if the current sequence contains an index from the right side of the board, return true.
+                const leftErrorFound = indexes.some(element => potentialErrors[1].includes(element)) //if the current sequence contains an index from the left side of the board, return false.
+                if (rightErrorFound && leftErrorFound) { //if the index contains pieces from both sides of the board there can't possibly be a winner, stops this iteration and moves to the next one.
+                    console.log("ERROR FOUND: VALUES FROM BOTH SIDES OF BOARD")
+                    continue
+                }
+                const fourValues = [flatBoard.at(indexes[0]), flatBoard.at(indexes[1]), flatBoard.at(indexes[2]), flatBoard.at(indexes[3])] //grabs the colours of the index sequence.
+                const fourMatches = fourValues.every(element => element === colour) //if all the colours of the index sequence match the current colour, return true.
+                if (fourMatches) { //if the matches are true and there are no errors, return the winning current colour from this function.
                     return colour
                 }
             }
         }
     }
-    return checkAllDirections(horizontal) || checkAllDirections(vertical) || checkAllDirections(diagonalLeft) || checkAllDirections(diagonalRight)
+    return checkAllDirections(horizontal) || checkAllDirections(vertical) || checkAllDirections(diagonalLeft) || checkAllDirections(diagonalRight) //run the function for each direction, if one has a return, return what it returns.
 }

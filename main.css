@@ -1,22 +1,24 @@
 body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
     display: flex;
     flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
-    height: 100%;
-    min-width: fit-content;
-    border: 5px inset;
-    border-color: blue;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 90%;
+    height: max-content;
     margin: auto;
     margin-top: 1%;
+    border: 5px inset;
+    border-color: blue;
+    border-radius: 1%;
     padding: 7px;
-    border-radius: 1%; 
-    max-width: 95%;
-    font-weight: bold;
 }
 
 hr {
     border: 2px solid;
     border-radius: 5px;
+    width: 100%;
 }
 
 #header {
@@ -34,6 +36,7 @@ hr {
     border-bottom: 5px solid;
     border-color: black;
     padding: 6px;
+    width: 95%;
 }
 
 #end-game {
@@ -41,26 +44,67 @@ hr {
 }
 
 #main {
-    display: flex;
-    justify-content: center;
-    column-gap: 2%;
-    margin: 2%;
-    height: 100%;
     background-color: cadetblue;
-    padding: 2%;
     border: 2px inset;
     border-color: darkslategray;
     border-radius: 1%;
+    display: flex;
+    justify-content: center;
+    column-gap: 2%;
+    width: 93%;
+    margin-top: 2%;
+    padding: 2%;
+}
+
+#setup-game {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+#submit-names {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+#submit-names-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+#setup-game-colours {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 #select-grid-colour {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+
+#select-background-colour {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+
+
+#select-grid-colour {
     margin-top: 6%;
+    flex-wrap: nowrap;
 }
 
 #select-background-colour {
     align-self: center;
     justify-self: flex-end;
     margin-top: 3%;
+    flex-wrap: nowrap;
 }
 
 #current-player {
@@ -136,7 +180,8 @@ hr {
 
 #names-and-scores {
     min-width: 200px;
-
+    width: auto;
+    
 }
 
 button {
@@ -145,7 +190,6 @@ button {
     width: 80%;
     font-weight: bold;
     min-width: 80px;
-
 }
 
 #display-names-and-scores {
@@ -155,6 +199,9 @@ button {
 }
 
 #footer {
-    text-align: right;
-    padding: 0px 0px 5px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 99%;
+    margin-top: 1%;
 }
