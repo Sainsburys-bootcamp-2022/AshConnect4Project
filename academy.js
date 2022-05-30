@@ -57,16 +57,12 @@ const getPlayerColours = () => {
 
 const setPlayerScores = (num1, num2) => {
     console.log("setPlayerScores was called.")
-    if (num1 >= 1) {
-        playerScores[0] += num1
-    } else {
+    if (num1 === 0 && num2 === 0) {
         playerScores[0] = 0
-    }
-
-    if (num2 >= 1) {
-        playerScores[1] += num2
+        playScores[1] = 0
     } else {
-        playerScores[1] = 0
+        playerScores[0] += num1
+        playerScores[1 += num2]
     }
 }
 
