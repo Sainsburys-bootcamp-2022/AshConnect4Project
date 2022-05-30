@@ -1,0 +1,19 @@
+{
+  "name": "connect4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "academy.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sainsburys-bootcamp-2022/AshConnect4Project.git"
+  },
+  "author": "Ash Holdsworth",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sainsburys-bootcamp-2022/AshConnect4Project/issues"
+  },
+  "homepage": "https://github.com/Sainsburys-bootcamp-2022/AshConnect4Project#readme"
+}
