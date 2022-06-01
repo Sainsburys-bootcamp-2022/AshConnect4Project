@@ -62,7 +62,7 @@ const setPlayerScores = (num1, num2) => {
         playScores[1] = 0
     } else {
         playerScores[0] += num1
-        playerScores[1 += num2]
+        playerScores[1] += num2
     }
 }
 
