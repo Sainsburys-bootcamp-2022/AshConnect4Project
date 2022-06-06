@@ -141,9 +141,21 @@ const displayUndoButton = (bool) => {
 const positionClick = (rowIndex, columnIndex) => {
     console.log("positionClick was called.")
     if (getGameOver() === false) {
-        takeTurn(rowIndex, columnIndex)
-        const result = checkWinner(board)
-        gameResult(result)
+        const boardData = [...getBoardData()]
+        const colour = getCurrentColour()
+        if (boardData[rowIndex][columnIndex] === null) {
+            const row = (rowCheck(columnIndex, boardData))
+            setBoardData(row, columnIndex, colour)
+            drawBoard(getBoardData)
+            setTurnsTaken(1)
+            const turns = getTurnsTaken()
+            gameResult(checkWinner(getBoardData(), turns, colour))
+            setMoveHistory(colour, row, columnIndex)
+            setCurrentColour(colour === playerColours[0] ? playerColours[1] : playerColours[0])
+            displayTurnIndicator()
+        } else {
+            alert("That space is taken. Please choose another space.")
+        }
     }
 }
 
@@ -181,8 +193,8 @@ const submitNamesClick = () => {
 
 const clearNamesClick = () => {
     console.log("clearNamesClick was called.")
-    document.getElementById(`player-${1}-input`).value = ""
-    document.getElementById(`player-${2}-input`).value = ""
+    document.getElementById(`player-1-input`).value = ""
+    document.getElementById(`player-2-input`).value = ""
 }
 
 const undoClick = () => {
@@ -271,3 +283,7 @@ clearBoardButton.addEventListener("click", clearBoardClick)
 // Bind the click event for the play-again-button.
 const playAgainButton = document.getElementById("play-again-button")
 playAgainButton.addEventListener("click", playAgainClick)
+
+module.exports = {
+    submitNamesClick
+}

@@ -59,11 +59,12 @@ const setPlayerScores = (num1, num2) => {
     console.log("setPlayerScores was called.")
     if (num1 === 0 && num2 === 0) {
         playerScores[0] = 0
-        playScores[1] = 0
+        playerScores[1] = 0
     } else {
         playerScores[0] += num1
         playerScores[1] += num2
     }
+    return playerScores
 }
 
 const getPlayerScores = () => {
@@ -74,11 +75,10 @@ const getPlayerScores = () => {
 const setMoveHistory = (colour, row, col, arr) => {
     console.log("setMoveHistory was called.")
     moveHistory.push([colour, row, col])
-
     if (arr) {
-        console.log("setMoveHistory IF STATEMENT entered.")
         moveHistory = arr
     }
+    return moveHistory
 }
 
 const getMoveHistory = () => {
@@ -86,13 +86,14 @@ const getMoveHistory = () => {
     return moveHistory
 }
 
-const setBoardData = () => {
+const setBoardData = (row, column, colour) => {
     console.log("setBoardData was called.")
+    board[row][column] = colour
 }
 
 const getBoardData = () => {
     console.log("getBoardData was called.")
-
+    return board
 }
 
 const setCurrentColour = (colour) => {
@@ -143,32 +144,13 @@ const getGridColour = () => {
 
 ////// GAME FUNCTIONS ///////
 
-const takeTurn = (row, col) => {
+const rowCheck = (col, boardData) => {
     console.log("takeTurn was called.")
-
-    if (board[row][col] === null) {
-        console.log("getCurrentColour:", getCurrentColour())
-        for (let i = 5; i >= 0; i--) {
-            if (board[i][col] === null && getCurrentColour() === playerColours[0]) {
-                board[i][col] = playerColours[0]
-                setMoveHistory(playerColours[0], i, col)
-                displayTurnIndicator()
-                setCurrentColour(playerColours[1])
-                setTurnsTaken(1)
-                break
-            } else if (board[i][col] === null && getCurrentColour()  === playerColours[1]) {
-                board[i][col] = playerColours[1]
-                setMoveHistory(playerColours[1], i, col)
-                displayTurnIndicator()
-                setCurrentColour(playerColours[0])
-                setTurnsTaken(1)
-                break
-            }
+    for (let i = boardData.length; i > 0; i--) {
+        if (boardData[i-1][col] === null) {
+            return i-1
         }
-    } else {
-        console.log("ERROR: That space is unavilable.")
     }
-    drawBoard(board)
 }
 
 const resetBoard = () => {
@@ -183,13 +165,8 @@ const resetBoard = () => {
     ]
 }
 
-const checkWinner = (board) => {
+const checkWinner = (board, turns, colour) => {
     console.log("checkWinner was called.")
-    const turns = getTurnsTaken()
-    const drawnGame = (turns === 42) ? true : false
-    if (drawnGame) {
-       return "draw"
-    }
     const horizontal = 1 //four values to pass into the direction value for the following function.
     const vertical = -7
     const diagonalLeft = -8
@@ -197,7 +174,6 @@ const checkWinner = (board) => {
     const checkAllDirections = (directionValue) => { //function to check for a sequence of four of the same colour. Works for all directions.
         console.log(`checkAllDirections was called with directionValue ${directionValue}.`)
         const flatBoard = [...board].flat()     //creates a new array of the board but flattened.
-        const colour = (getCurrentColour() === playerColours[0]) ? playerColours[1] : playerColours[0] //sets the current colour to check.
         for (const i in flatBoard) { //starts a loop that goes through every index of the new array.
             const checkColour = (flatBoard[i] === colour) ? true : false //checks if the current index is the current colour.
             if (checkColour) { //if the current index is the current colour. Stops the loop from wasting time by checking the previous colour that was checked last turn.
@@ -217,10 +193,23 @@ const checkWinner = (board) => {
                 const fourValues = [flatBoard.at(indexes[0]), flatBoard.at(indexes[1]), flatBoard.at(indexes[2]), flatBoard.at(indexes[3])] //grabs the colours of the index sequence.
                 const fourMatches = fourValues.every(element => element === colour) //if all the colours of the index sequence match the current colour, return true.
                 if (fourMatches) { //if the matches are true and there are no errors, return the winning current colour from this function.
+                    console.log("I'M HERE:", fourMatches)
                     return colour
                 }
             }
         }
     }
-    return checkAllDirections(horizontal) || checkAllDirections(vertical) || checkAllDirections(diagonalLeft) || checkAllDirections(diagonalRight) //run the function for each direction, if one has a return, return what it returns.
+    const result = checkAllDirections(horizontal) || checkAllDirections(vertical) || checkAllDirections(diagonalLeft) || checkAllDirections(diagonalRight)  //run the function for each direction, if one has a return, return what it returns.
+    if (result) {
+        return result
+    } else if (turns >= 42) {
+        return "draw"
+    }
+}
+
+module.exports = {
+    setPlayerScores,
+    setMoveHistory,
+    rowCheck,
+    checkWinner
 }

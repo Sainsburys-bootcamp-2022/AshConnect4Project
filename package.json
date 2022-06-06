@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Sainsburys-bootcamp-2022/AshConnect4Project/issues"
   },
-  "homepage": "https://github.com/Sainsburys-bootcamp-2022/AshConnect4Project#readme"
+  "homepage": "https://github.com/Sainsburys-bootcamp-2022/AshConnect4Project#readme",
+  "devDependencies": {
+    "jest": "^28.1.0"
+  }
 }
