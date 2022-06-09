@@ -7,7 +7,7 @@ beforeEach(() => {
 beforeEach(() => {
     academy.setMoveHistory(null, null, null, [])
 })
-test ("should take 2 numbers, add them to the values of an existing array and return that array. If the 2 nums are 0, returns array of 2 0s.", () => {
+it ("should take 2 numbers, add them to the values of an existing array and return that array. If the 2 nums are 0, returns array of 2 0s.", () => {
     //ACT
     const num1 = 0
     const num2 = 0
@@ -17,7 +17,7 @@ test ("should take 2 numbers, add them to the values of an existing array and re
     expect(academy.setPlayerScores(num1, num2)).toStrictEqual(result)
 })
 
-test ("takes the current colour, the row and column clicked and adds them as an array to the end of an array. If an array is passed, sets the moveHistory array as the new array." , () => {
+it ("takes the current colour, the row and column clicked and adds them as an array to the end of an array. If an array is passed, sets the moveHistory array as the new array." , () => {
     //ACT
     const colour = null
     const row = null

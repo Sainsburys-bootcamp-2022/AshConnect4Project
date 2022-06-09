@@ -4,6 +4,7 @@ const pageLoad = () => {
     document.getElementById("game-board").style.display = "none"
     document.getElementById("names-and-scores").style.display = "none"
     document.getElementById("setup-game").style.display = "block"
+    document.getElementById("display-winner-prefix").style.visibility = "hidden"
 }
 pageLoad()
 
@@ -19,27 +20,28 @@ const startNewGame = () => {
     displayUndoButton(false)
     writePlayerNames()
     writePlayerScores()
-    displayTurnIndicator()
+    updateTurnIndicator()
     setTurnsTaken(0)
     changeGameColours()
 }
 
 const drawBoard = () => {
     console.log("drawBoard was called.")
-    clearBoard()
+    clearVisualBoard()
+    const boardData = getBoardData()
     for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
         for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
-            if (!board[rowIndex][columnIndex]) {
+            if (!boardData[rowIndex][columnIndex]) {
                 continue;
             }
-            const cellText = board[rowIndex][columnIndex] === playerColours[0] ? playerColours[0] : playerColours[1]
+            const cellText = boardData[rowIndex][columnIndex] === playerColours[0] ? playerColours[0] : playerColours[1]
             document.getElementById(`row-${rowIndex}-column-${columnIndex}`).style.backgroundColor = cellText
         }
     }
 }
 
-const clearBoard = () => {
-    console.log("clearBoard was called.")
+const clearVisualBoard = () => {
+    console.log("clearVisualBoard was called.")
     for (let rowIndex = 0; rowIndex < 6; rowIndex++) {
         for (let columnIndex = 0; columnIndex < 7; columnIndex++) {
             const colour = getBackgroundColour()
@@ -48,8 +50,8 @@ const clearBoard = () => {
     }
 }
 
-const displayTurnIndicator = () => {
-    console.log("displayTurnIndicator was called.")
+const updateTurnIndicator = () => {
+    console.log("updateTurnIndicator was called.")
     const moves = getMoveHistory()
     let turnColour = playerColours[0]
     if (moves.length > 0) {
@@ -85,16 +87,16 @@ const gameResult = (result) => {
     console.log("gameResult was called.")
     if (result === playerColours[0]) {
         setPlayerScores(1, null)
-        endGame(result)
+        drawEndGame(result)
     } else if (result === playerColours[1]) {
         setPlayerScores(null, 1)
-        endGame(result)
+        drawEndGame(result)
     } else if (result === "draw") {
-        endGame(result)
+        drawEndGame(result)
     }
 }
 
-const endGame = (result) => {
+const drawEndGame = (result) => {
     console.log("endGame was called.")
     setGameOver(true)
     writePlayerScores()
@@ -105,9 +107,11 @@ const endGame = (result) => {
     }
     const names = getPlayerNames()
     if (result === "draw") {
+        document.getElementById("display-winner-prefix").style.visibility = "hidden"
         document.getElementById("display-winner").innerText = `DRAW!`
     } else {
-        document.getElementById("display-winner").innerText = `The Winner is ${names[result]}!`
+        document.getElementById("display-winner-prefix").style.visibility = "visible"
+        document.getElementById("display-winner").innerText = names[result]
     }
     displayUndoButton(false)
     document.getElementById("play-again-button").style.display = "block"
@@ -145,14 +149,14 @@ const positionClick = (rowIndex, columnIndex) => {
         const colour = getCurrentColour()
         if (boardData[rowIndex][columnIndex] === null) {
             const row = (rowCheck(columnIndex, boardData))
-            setBoardData(row, columnIndex, colour)
+            setBoardData(null, row, columnIndex, colour)
             drawBoard(getBoardData)
             setTurnsTaken(1)
             const turns = getTurnsTaken()
             gameResult(checkWinner(getBoardData(), turns, colour))
             setMoveHistory(colour, row, columnIndex)
             setCurrentColour(colour === playerColours[0] ? playerColours[1] : playerColours[0])
-            displayTurnIndicator()
+            updateTurnIndicator()
         } else {
             alert("That space is taken. Please choose another space.")
         }
@@ -170,7 +174,6 @@ const submitNamesClick = () => {
         }
         return true
     }
-    //sets the names and colours of the players.
     if (checkIfNamesEntered) {
         const selectedColours = [document.getElementById(`player-1-colour`).value, document.getElementById(`player-2-colour`).value]
         if (selectedColours[0] === selectedColours[1]) {
@@ -201,7 +204,8 @@ const undoClick = () => {
     console.log("undoClick was called.")
     let moves = [...getMoveHistory()]
     const lastMove = moves.at(-1)
-    board[lastMove[1]][lastMove[2]] = null
+    const boardData = getBoard()
+    boardData[lastMove[1]][lastMove[2]] = null
     moves.pop()
     setMoveHistory(null, null, null, moves)
     setTurnsTaken(-1)
@@ -211,24 +215,27 @@ const undoClick = () => {
 const clearBoardClick = () => {
     console.log("clearBoardClick was called.")
     resetBoard()
-    clearBoard()
+    clearVisualBoard()
     setTurnsTaken(0)
 }
 
 const resetClick = () => {
     console.log("reset Click was called.")
+    document.getElementById("main").style.opacity = 1
     clearBoardClick()
     clearWinnerDisplay()
     pageLoad()
-    setPlayerScores(0, 0)   
+    setPlayerScores(0, 0)
+    setGameOver(false)  
 }
 
 const playAgainClick = () => {
     console.log("playAgainClick was called.")
     document.getElementById("main").style.opacity = 1
-    displayTurnIndicator()
+    document.getElementById("display-winner-prefix").style.visibility = "hidden"
+    updateTurnIndicator()
     setTurnsTaken(0)
-    clearBoard()
+    clearVisualBoard()
     resetBoard()
     clearWinnerDisplay()
     setGameOver(false)

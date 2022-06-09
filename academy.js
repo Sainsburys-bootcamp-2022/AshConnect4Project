@@ -86,9 +86,20 @@ const getMoveHistory = () => {
     return moveHistory
 }
 
-const setBoardData = (row, column, colour) => {
+const setBoardData = (arr, row, column, colour) => {
     console.log("setBoardData was called.")
-    board[row][column] = colour
+    if (arr) {
+        board = [
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null]
+        ]
+    } else {
+        board[row][column] = colour
+    }
 }
 
 const getBoardData = () => {
@@ -155,14 +166,7 @@ const rowCheck = (col, boardData) => {
 
 const resetBoard = () => {
     console.log("resetBoard was called.")
-    board = [
-        [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null]
-    ]
+    setBoardData([])
 }
 
 const checkWinner = (board, turns, colour) => {
@@ -193,7 +197,6 @@ const checkWinner = (board, turns, colour) => {
                 const fourValues = [flatBoard.at(indexes[0]), flatBoard.at(indexes[1]), flatBoard.at(indexes[2]), flatBoard.at(indexes[3])] //grabs the colours of the index sequence.
                 const fourMatches = fourValues.every(element => element === colour) //if all the colours of the index sequence match the current colour, return true.
                 if (fourMatches) { //if the matches are true and there are no errors, return the winning current colour from this function.
-                    console.log("I'M HERE:", fourMatches)
                     return colour
                 }
             }
@@ -208,8 +211,27 @@ const checkWinner = (board, turns, colour) => {
 }
 
 module.exports = {
+    setGameOver,
+    getGameOver,
+    setPlayerNames,
+    getPlayerNames,
+    setPlayerColours,
+    getPlayerColours,
+    setCurrentColour,
+    getCurrentColour,
     setPlayerScores,
+    getPlayerScores,
     setMoveHistory,
+    getMoveHistory,
+    setBoardData,
+    getBoardData,
+    setTurnsTaken,
+    getTurnsTaken,
+    setGridColour,
+    getGridColour,
+    setBackgroundColour,
+    getBackgroundColour,
+    resetBoard,
     rowCheck,
     checkWinner
 }
