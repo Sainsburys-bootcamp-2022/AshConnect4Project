@@ -7,7 +7,6 @@ let board = [
     [null, null, null, null, null, null, null]
 ]
 
-
 let playerNames = []
 let playerColours = ["red", "yellow"]
 let playerScores = [0, 0]

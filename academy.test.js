@@ -33,17 +33,17 @@ it ("takes the current colour, the row and column clicked and adds them as an ar
 })
 
 test ("takes an index and a 2D array. Returns the highest index of the inner array at the given index that is null.", () => {
-    const column = 1;
+    const column = 0;
     const board = [
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
         [null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null]
+        ["red", null, null, null, null, null, null]
     ]
 
-    const expectedResult = 5
+    const expectedResult = 4
 
     expect(academy.rowCheck(column, board)).toEqual(expectedResult)
 })

@@ -69,8 +69,8 @@ const updateTurnIndicator = () => {
 const writePlayerNames = () => {
     console.log("writePlayerNames was called.")
     const names = getPlayerNames()
-    for(i in names) {
-        document.getElementById(`display-player-${parseInt(i)+1}-name`).innerHTML = names[i]
+    for (i in names) {
+        document.getElementById(`display-player-${parseInt(i) + 1}-name`).innerHTML = names[i]
     }
 }
 
@@ -79,7 +79,7 @@ const writePlayerScores = () => {
     const scores = getPlayerScores()
     console.log("scores:", getPlayerScores())
     for (i in scores) {
-        document.getElementById(`player-${parseInt(i)+1}-score`).innerHTML = scores[i]
+        document.getElementById(`player-${parseInt(i) + 1}-score`).innerHTML = scores[i]
     }
 }
 
@@ -165,10 +165,9 @@ const positionClick = (rowIndex, columnIndex) => {
 
 const submitNamesClick = () => {
     console.log("submitNamesClick was called.")
-    //function to check if the name boxes are empty.
     const checkIfNamesEntered = () => {
-        for (let i=0; i<=1; i++) {
-            if (document.getElementById(`player-${i+1}-input`).value === "") {
+        for (let i = 0; i <= 1; i++) {
+            if (document.getElementById(`player-${i + 1}-input`).value === "") {
                 return false
             }
         }
@@ -180,8 +179,8 @@ const submitNamesClick = () => {
             alert("Please select different colours for each Player!")
         } else {
             let enteredNames = []
-            for (let i=0; i<=1; i++) {
-                enteredNames[i] = document.getElementById(`player-${i+1}-input`).value
+            for (let i = 0; i <= 1; i++) {
+                enteredNames[i] = document.getElementById(`player-${i + 1}-input`).value
             }
             setPlayerNames(enteredNames)
             setPlayerColours(selectedColours)
@@ -190,7 +189,7 @@ const submitNamesClick = () => {
             clearNamesClick()
         }
     } else {
-        alert("Please enter names for both Players.") 
+        alert("Please enter names for both Players.")
     }
 }
 
@@ -226,7 +225,7 @@ const resetClick = () => {
     clearWinnerDisplay()
     pageLoad()
     setPlayerScores(0, 0)
-    setGameOver(false)  
+    setGameOver(false)
 }
 
 const playAgainClick = () => {
